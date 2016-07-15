@@ -2,11 +2,11 @@ var southWest = L.latLng(34.9816, -85.4719);
 var northEast = L.latLng(35.217, -85.0462);
 var center = L.latLng(35.0657, -85.241);
 var bounds = L.latLngBounds(southWest, northEast);
-var tiles = '//otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png';
+var tiles = '//{s}.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}';
 var geocoder = 'http://maps.hamiltontn.gov/ArcGIS/rest/services/Addressing_Locator/GeocodeServer/findAddressCandidates';
 var card_template = $('#card_template').html();
 var zone_name_template = $('#zone_name_template').html();
-var map_attribution = 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Zone data &copy; City of Chattanooga'; 
+var map_attribution = 'Map data &copy; <a href="http://esri.com">Esri</a>, HERE, DeLorme, USGS, EPA, USDA, Zone data &copy; City of Chattanooga'; 
 var marker;
 var zones;
 
@@ -44,7 +44,10 @@ var map = L.map('map', {
   zoom: 12
 });
 
-L.tileLayer(tiles, {attribution: map_attribution}).addTo(map);
+L.tileLayer(tiles, {
+  attribution: map_attribution,
+  subdomains: ['server', 'services']
+}).addTo(map);
 
 omnivore.topojson('data/CPDZones.topojson')
   .on('ready', function(layer) {
